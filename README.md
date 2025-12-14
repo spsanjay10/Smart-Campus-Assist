@@ -149,5 +149,3 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Mermaid](https://mermaid.js.org/) for diagram generation
 
 ---
-
-Made with ❤️ for students everywhere. Happy studying! 📖✨
