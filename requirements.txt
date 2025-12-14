@@ -1,0 +1,13 @@
+flask==3.0.0
+flask-cors==4.0.0
+langchain==0.3.7
+langchain-community
+langchain-google-genai
+langchain-huggingface
+faiss-cpu
+pypdf
+python-dotenv
+groq
+openai>=1.0.0
+duckduckgo-search
+gTTS

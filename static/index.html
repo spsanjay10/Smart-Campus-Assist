@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Campus – Your AI Study Companion</title>
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">Study Smarter</div>
+            <h1 class="hero-title">
+                Your AI-powered<br>
+                <span class="gradient-text">Learning Companion</span>
+            </h1>
+            <p class="hero-subtitle">Transform your PDFs into interactive knowledge with AI</p>
+        </div>
+        <div class="hero-glow"></div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="nav-item active" data-tab="library">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <span>Library</span>
+                </div>
+                <div class="nav-item" data-tab="chat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Study Chat</span>
+                </div>
+                <div class="nav-item" data-tab="tools">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                    </svg>
+                    <span>Toolkit</span>
+                </div>
+                <div class="nav-item" data-tab="quiz">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                        <path d="M9 17v-6M12 17v-8M15 17v-4"></path>
+                    </svg>
+                    <span>Quiz</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Library Tab -->
+            <section class="content-section active" id="library">
+                <div class="section-header">
+                    <h2>📚 Your Library</h2>
+                    <p>Upload and organize your study materials</p>
+                </div>
+
+                <div class="upload-card">
+                    <div class="upload-zone" id="uploadArea">
+                        <div class="upload-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                            </svg>
+                        </div>
+                        <h3>Drop your PDFs here</h3>
+                        <p>or click to browse files</p>
+                        <button class="btn-browse"
+                            onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
+                            Browse Files
+                        </button>
+                        <input type="file" id="fileInput" multiple accept=".pdf" style="display:none">
+                    </div>
+                    <div class="upload-status" id="uploadStatus"></div>
+                </div>
+
+                <!-- Document List -->
+                <div class="documents-section" id="documentsSection" style="margin-top: 32px; display: none;">
+                    <h3 style="margin-bottom: 20px;">📁 Uploaded Documents</h3>
+                    <div class="documents-grid" id="documentsList"></div>
+                </div>
+            </section>
+
+            <!-- Chat Tab -->
+            <section class="content-section" id="chat">
+                <div class="section-header">
+                    <h2>💬 Study Chat</h2>
+                    <p>Ask questions about your materials</p>
+                </div>
+
+                <!-- Document Filter -->
+                <div class="document-filter" id="documentFilter" style="margin-bottom: 20px; display: none;">
+                    <div class="filter-header">
+                        <span style="font-weight: 600; margin-right: 12px;">Filter by documents:</span>
+                        <button class="btn-small" id="selectAllDocs">Select All</button>
+                        <button class="btn-small" id="clearSelection">Clear All</button>
+                    </div>
+                    <div class="document-chips" id="documentChips"></div>
+                </div>
+
+                <div class="chat-wrapper">
+                    <div class="chat-box">
+                        <div class="messages-container" id="chatMessages">
+                            <div class="welcome-card">
+                                <div class="welcome-icon">👋</div>
+                                <h3>Hello! I'm your AI study assistant</h3>
+                                <p>Upload your PDFs and ask me anything about them</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-controls">
+                        <div class="control-row">
+                            <button id="webSearchToggle" class="web-search-toggle" title="Toggle web search mode">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                    </path>
+                                </svg>
+                                <span id="searchModeText">Documents</span>
+                            </button>
+                            <label class="switch">
+                                <input type="checkbox" id="voiceMode">
+                                <span class="slider"></span>
+                                <span class="label-text">🔊 Voice Mode</span>
+                            </label>
+                            <button class="btn-clear" id="clearMemory">Clear Chat</button>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input type="text" id="chatInput" placeholder="Ask me anything..." class="chat-input">
+                            <button class="btn-send" id="sendBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tools Tab -->
+            <section class="content-section" id="tools">
+                <div class="section-header">
+                    <h2>🛠️ Study Toolkit</h2>
+                    <p>Generate summaries, flashcards, and mind maps</p>
+                </div>
+
+                <div class="tools-grid">
+                    <!-- Summarizer -->
+                    <div class="tool-card">
+                        <div class="tool-icon">📝</div>
+                        <h3>Summarizer</h3>
+                        <p>Get concise summaries of your materials</p>
+
+                        <!-- Document Filter -->
+                        <div class="document-filter-compact" id="summarizerDocFilter"
+                            style="margin-bottom: 16px; display: none;">
+                            <div class="filter-header">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">📑 Select
+                                    Documents:</span>
+                                <button class="btn-small" onclick="toggleAllDocs('summarizer')">Select All</button>
+                            </div>
+                            <div class="document-chips" id="summarizerDocChips"></div>
+                        </div>
+
+                        <select id="summaryStyle" class="tool-select">
+                            <option value="Bulleted">Bullet Points</option>
+                            <option value="Paragraph">Paragraph</option>
+                            <option value="ELI5">Explain Like I'm 5</option>
+                        </select>
+                        <div class="tool-buttons-row">
+                            <button class="btn-tool" id="summarizeBtn">Generate Summary</button>
+                            <button class="btn-reset" id="resetSummarizerBtn" title="Clear summary">🔄</button>
+                        </div>
+                        <div class="tool-result" id="summaryOutput"></div>
+                    </div>
+
+                    <!-- Flashcards -->
+                    <div class="tool-card">
+                        <div class="tool-icon">🗂️</div>
+                        <h3>Flashcards</h3>
+                        <p>Auto-generate study cards</p>
+
+                        <!-- Document Filter -->
+                        <div class="document-filter-compact" id="flashcardsDocFilter"
+                            style="margin-bottom: 16px; display: none;">
+                            <div class="filter-header">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">📑 Select
+                                    Documents:</span>
+                                <button class="btn-small" onclick="toggleAllDocs('flashcards')">Select All</button>
+                            </div>
+                            <div class="document-chips" id="flashcardsDocChips"></div>
+                        </div>
+
+                        <div class="tool-buttons-row">
+                            <button class="btn-tool" id="flashcardsBtn">Generate & Save</button>
+                            <button class="btn-reset" id="resetFlashcardsBtn" title="Clear flashcards">🔄</button>
+                        </div>
+                        <div class="tool-result flashcards-grid" id="flashcardsOutput"></div>
+                    </div>
+
+                    <!-- Mind Map -->
+                    <div class="tool-card">
+                        <div class="tool-icon">🧠</div>
+                        <h3>Mind Map</h3>
+                        <p>Visualize concepts and connections</p>
+
+                        <!-- Document Filter -->
+                        <div class="document-filter-compact" id="mindmapDocFilter"
+                            style="margin-bottom: 16px; display: none;">
+                            <div class="filter-header">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">📑 Select
+                                    Documents:</span>
+                                <button class="btn-small" onclick="toggleAllDocs('mindmap')">Select All</button>
+                            </div>
+                            <div class="document-chips" id="mindmapDocChips"></div>
+                        </div>
+
+                        <!-- Step 1: Extract Topics -->
+                        <div class="mindmap-step" id="topicExtractStep">
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 12px;">
+                                Step 1: Extract topics from your documents
+                            </p>
+                            <button class="btn-tool" id="extractTopicsBtn">📋 Extract Topics</button>
+                        </div>
+
+                        <!-- Step 2: Topic Selection (hidden initially) -->
+                        <div class="topic-selection" id="topicSelectionArea" style="display: none; margin: 16px 0;">
+                            <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 12px;">
+                                Step 2: Select a topic for your mind map:
+                            </p>
+                            <div class="topic-chips" id="topicChips"></div>
+                        </div>
+
+                        <!-- Step 3: Toggle between 2D and 3D -->
+                        <div class="viz-mode-toggle" id="vizModeToggle" style="display: none;">
+                            <button class="btn-viz-mode active" data-mode="2d" id="mode2DBtn">2D Mind Map</button>
+                            <button class="btn-viz-mode" data-mode="3d" id="mode3DBtn">3D Knowledge Graph</button>
+                        </div>
+
+                        <div class="tool-buttons-row" id="generateBtnsRow" style="display: none;">
+                            <button class="btn-tool" id="mindmapBtn">🧠 Generate Mind Map</button>
+                            <button class="btn-reset" id="resetMindmapBtn" title="Clear visualization">🔄</button>
+                        </div>
+
+                        <!-- 2D Mermaid Output (Existing) -->
+                        <div class="tool-result" id="mindmapOutput"></div>
+
+                        <!-- 3D Knowledge Graph (New) -->
+                        <div id="knowledgeGraphContainer" class="graph-3d-wrapper" style="display: none;">
+                            <div class="graph-controls">
+                                <button class="btn-graph-control" id="resetCamera" title="Reset Camera View">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M1 4v6h6M23 20v-6h-6"></path>
+                                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15">
+                                        </path>
+                                    </svg>
+                                    Reset
+                                </button>
+                                <button class="btn-graph-control" id="togglePhysics" title="Pause/Resume Physics">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="6" y="4" width="4" height="16"></rect>
+                                        <rect x="14" y="4" width="4" height="16"></rect>
+                                    </svg>
+                                    Pause
+                                </button>
+                                <input type="text" id="searchNode" class="graph-search"
+                                    placeholder="🔍 Search nodes...">
+                                <select id="clusterFilter" class="graph-filter">
+                                    <option value="all">All Topics</option>
+                                </select>
+                            </div>
+                            <div id="3d-graph" class="graph-3d-canvas"></div>
+                            <div class="graph-info" id="graphInfo">Drag to rotate • Scroll to zoom • Click nodes for
+                                details</div>
+                            <div class="node-details" id="nodeDetails" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz/Knowledge Check Tab -->
+            <section class="content-section" id="quiz">
+                <div class="section-header">
+                    <h2>📊 Knowledge Check</h2>
+                    <p>Test your understanding with AI-generated questions</p>
+                </div>
+
+                <!-- Document Filter -->
+                <div class="document-filter-compact" id="quizDocFilter" style="margin-bottom: 24px; display: none;">
+                    <div class="filter-header">
+                        <span style="font-size: 0.95rem; font-weight: 600;">📑 Select Documents for Quiz:</span>
+                        <button class="btn-small" onclick="toggleAllDocs('quiz')">Select All</button>
+                    </div>
+                    <div class="document-chips" id="quizDocChips"></div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎯</div>
+                    <h3>Quiz Generator</h3>
+                    <p>Generate multiple-choice questions from your documents</p>
+
+                    <select id="quizDifficulty" class="tool-select">
+                        <option value="easy">Easy - 5 Questions</option>
+                        <option value="medium" selected>Medium - 10 Questions</option>
+                        <option value="hard">Hard - 15 Questions</option>
+                    </select>
+
+                    <div class="tool-buttons-row">
+                        <button class="btn-tool" id="generateQuizBtn">Generate Quiz</button>
+                        <button class="btn-reset" id="resetQuizBtn" title="Clear quiz">🔄</button>
+                    </div>
+
+                    <div class="tool-result" id="quizOutput"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js"></script>
+    <script src="/static/js/app.js?v=4"></script>
+</body>
+
+</html>
