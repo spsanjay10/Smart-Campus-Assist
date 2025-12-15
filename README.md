@@ -83,7 +83,7 @@ An AI-powered study companion with an elegant, Apple-inspired web interface. Upl
 | **Vector DB** | FAISS with HuggingFace Embeddings |
 | **Web Search** | DuckDuckGo |
 | **TTS** | Google Text-to-Speech (gTTS) |
-| **UI Design** | Apple-inspired Glassmorphism |
+| **UI Design** | Glassmorphism |
 
 ## 📁 Project Structure
 
